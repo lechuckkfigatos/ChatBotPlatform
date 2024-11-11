@@ -1,0 +1,29 @@
+
+.sidebar-container {
+  width: 250px;
+  background-color: #171717;
+  color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+
+.icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.divider {
+  background-color: #2c2c2c;
+}
+
+.logout-section {
+  margin-top: auto; /* Push to bottom */
+  padding-bottom: 20px;
+}
+
+.MuiListItemText-root {
+  font-size: 16px;
+}

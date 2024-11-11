@@ -1,0 +1,28 @@
+.top-bar {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #07192b;
+    color: #293ba2;
+    position:static;
+  }
+  .Title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: auto;
+  }
+  
+  .menu-toggle {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  
+  .logo{
+    width: 100px;
+    height: 40px;
+    margin-left: 20px;
+  }
+  
