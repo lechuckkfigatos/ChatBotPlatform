@@ -27,6 +27,34 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
 
   const menuItems = ['Add chat', 'Award', 'Quiz', 'Conv History', 'Setting'];
 
+  const handleMenuClick = (menuItem) => {
+    toggleSidebar(); 
+    switch (menuItem) {
+      case 'Add chat':
+        console.log('Navigating to Add Chat');
+        break;
+      case 'Award':
+        console.log('Navigating to Awards');
+        break;
+      case 'Quiz':
+        console.log('Navigating to Quiz');
+        break;
+      case 'Conv History':
+        console.log('Navigating to Conversation History');
+        break;
+      case 'Setting':
+        console.log('Navigating to Settings');
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleLogout = () => {
+    toggleSidebar();
+    console.log('Logging out...');
+  };
+
   return (
     <Drawer open={isOpen} onClose={toggleSidebar} anchor="left">
       <Box
@@ -37,7 +65,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
         <List>
           {menuItems.map((text, index) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => handleMenuClick(text)}>
                 <ListItemIcon className="icon">
                   {listIcons[index]}
                 </ListItemIcon>
@@ -49,7 +77,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
         <Divider className="divider" />
         <div className="logout-section">
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={handleLogout}>
               <ListItemIcon className="icon">
                 <img src={logoutIcon} alt="Logout" style={{ width: 24, height: 24 }} />
               </ListItemIcon>

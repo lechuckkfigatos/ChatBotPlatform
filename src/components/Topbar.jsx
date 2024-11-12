@@ -1,7 +1,7 @@
 // TopBar.js
 import React from 'react';
 import menuIcon from '../assets/menu.png';
-import logoIcon from '../assets/logo.png';
+import logoIcon from '../assets/usth light logo.png';
 import './TopBar.css';
 
 const TopBar = ({ toggleSidebar }) => {
@@ -13,10 +13,7 @@ const TopBar = ({ toggleSidebar }) => {
         className="menu-toggle"
         onClick={toggleSidebar}
       />
-      <img src={logoIcon} alt="Logo" className="logo" />
-      <div className="Title">
-        <h2 className='chatbot'>Chatbot</h2>
-      </div>
+      <img src={logoIcon} alt="usthlogo" className="logo" />
     </div>
   );
 };
