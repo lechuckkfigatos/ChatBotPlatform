@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ChatArea.css';
+import { Divider } from '@mui/material';
 
 const ChatArea = () => {
   const [messages, setMessages] = useState([]);
@@ -26,6 +27,7 @@ const ChatArea = () => {
   };
 
   return (
+    <div className='center'>
     <div className="chat-area">
       <div className="messages">
         {messages.map((msg, index) => (
@@ -46,6 +48,7 @@ const ChatArea = () => {
         />
         <button onClick={handleSend}>Send</button>
       </div>
+    </div>
     </div>
   );
 };

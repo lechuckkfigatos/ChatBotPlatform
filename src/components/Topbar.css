@@ -4,16 +4,10 @@
     padding: 10px;
     padding-bottom: 15px;
     background-color: #ffffff;
-    color: #ffffff;
+    color: black;
     position:static;
   }
-  .Title {
-    font-size: 15px;
-    font-weight: bold;
-    margin-left: 20px;
-    margin-top: auto;
-    font-family: croogla ;
-  }
+
   
   .menu-toggle {
     width: 35px;
@@ -30,3 +24,11 @@
     margin-left: 20px;
   }
   
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: auto;
+    cursor: pointer;
+    margin-right: 20px;
+  }

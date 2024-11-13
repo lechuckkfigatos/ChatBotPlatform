@@ -5,6 +5,7 @@ import TopBar from './components/TopBar';
 import ChatArea from './components/ChatArea';
 import './App.css';
 
+
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -15,11 +16,9 @@ const App = () => {
 
   return (
     <div className="app">
-      <div className="background">
-        {/* Pass the toggleSidebar function to TopBar */}
+      <div>
         <TopBar toggleSidebar={toggleSidebar} />
         <div className="main-content">
-          {/* Pass isOpen and toggleSidebar to Sidebar */}
           <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
           <ChatArea />
         </div>

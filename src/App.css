@@ -5,8 +5,8 @@
 }
 
 html, body {
+  font-family: 'Roboto', sans-serif;
   height: 100%;
-  font-family: 'Arial', sans-serif;
   background-color: #e6f1f8;
   color: #d1d5db;
 }
@@ -20,12 +20,14 @@ html, body {
 
 .main-content {
   flex-direction: column;
-  align-items:center;
-  justify-content: center; /* Center horizontally */
+  align-items: center;
+  justify-content: center;
   display: flex;
   flex: 1;
-  height: calc(100vh - 80px); /* Adjust for the height of the TopBar */
+  height: calc(100vh - 80px); 
+  width: 100%; /* Added to make main-content full width */
 }
+
 
 .topbar {
   position: fixed;
@@ -38,5 +40,4 @@ html, body {
   align-items: center;
   padding: 0 20px;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
