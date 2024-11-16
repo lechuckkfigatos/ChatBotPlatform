@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -9,7 +9,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import './Sidebar.css';
 
-import add_chatIcon from '../assets/add_note.png';
+import addChatIcon from '../assets/add_note.png';
 import awardIcon from '../assets/award.png';
 import historyIcon from '../assets/history.png';
 import logoutIcon from '../assets/logout.png';
@@ -18,79 +18,107 @@ import settingIcon from '../assets/settings.png';
 import usthLogo from '../assets/usthlogo.png';
 import Setting from './SidebarItem/Setting';
 
-export default function Sidebar({ isOpen, toggleSidebar }) {
-  const [showSettings, setShowSettings] = React.useState(false);
+export default function Sidebar({ isOpen, toggleSidebar, onChatSelect }) {
+  const [showSettings, setShowSettings] = useState(false);
+  const [showConvHistory, setShowConvHistory] = useState(false);
 
-  const listIcons = [
-    <img src={add_chatIcon} alt="Add chat" style={{ width: 24, height: 24 }} />,
-    <img src={awardIcon} alt="Award" style={{ width: 28, height: 28 }} />,
-    <img src={quizIcon} alt="Quiz" style={{ width: 24, height: 24 }} />,
-    <img src={historyIcon} alt="History" style={{ width: 24, height: 24 }} />,
-    <img src={settingIcon} alt="Settings" style={{ width: 24, height: 24 }} />,
+  const mainMenuItems = [
+    { text: 'Add Chat', icon: addChatIcon },
+    { text: 'Award', icon: awardIcon },
+    { text: 'Quiz', icon: quizIcon },
+    { text: 'Conversation History', icon: historyIcon },
+    { text: 'Setting', icon: settingIcon }
   ];
 
-  const menuItems = ['Add chat', 'Award', 'Quiz', 'Conversation History', 'Setting'];
+  const conversationChats = ['Chat 1', 'Chat 2', 'Chat 3'];
 
-  const handleMenuClick = (menuItem) => {
-    toggleSidebar(); 
+  const handleMainMenuClick = (menuItem) => {
     switch (menuItem) {
-      case 'Add chat':
+      case 'Add Chat':
+        toggleSidebar();
         console.log('Navigating to Add Chat');
         break;
       case 'Award':
+        toggleSidebar();
         console.log('Navigating to Awards');
         break;
       case 'Quiz':
+        toggleSidebar();
         console.log('Navigating to Quiz');
         break;
       case 'Conversation History':
-        console.log('Navigating to Conversation History');
+        setShowConvHistory((prev) => !prev);
         break;
       case 'Setting':
-        setShowSettings(true); 
+        toggleSidebar();
+        handleSettings();
         break;
       default:
         break;
     }
   };
 
-  const handleLogout = () => {
+  const handleChatSelect = (chat) => {
+    onChatSelect(chat);
     toggleSidebar();
-    console.log('Logging out...');
   };
 
-  const closeSettings = () => {
-    setShowSettings(false); 
+  // Updated handleSettings function to open the Settings modal
+  const handleSettings = () => {
+    setShowSettings(true);
+  };
+
+  const handleLogout = () => {
+    console.log('Logging out...');
+    toggleSidebar();
   };
 
   return (
     <>
       <Drawer open={isOpen} onClose={toggleSidebar} anchor="left">
-        <Box
-          className="sidebar-container"
-          role="presentation"
-          onClick={toggleSidebar}
-        >
+        <Box className="sidebar-container" role="presentation">
+          {/* USTH Logo */}
           <List>
-            <img src={usthLogo} alt='usth logo' className='usthlogo' />
-            <Divider className="divider" />
-            {menuItems.map((text, index) => (
-              <ListItem className='list-item' key={text} disablePadding>
-                <ListItemButton onClick={() => handleMenuClick(text)}>
-                  <ListItemIcon className='icon'>
-                    {listIcons[index]}
+            <img src={usthLogo} alt="USTH Logo" className="usthlogo" />
+          </List>
+
+          <Divider className="divider" />
+
+          {/* Main Menu Items */}
+          <List>
+            {mainMenuItems.map((item) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton onClick={() => handleMainMenuClick(item.text)}>
+                  <ListItemIcon>
+                    <img src={item.icon} alt={item.text} style={{ width: 24, height: 24 }} />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={item.text} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
+
           <Divider className="divider" />
-          <div className="logout-section">
+
+          {/* Conversation History with Transition */}
+          <div className={`conv-history ${showConvHistory ? 'show' : 'hide'}`}>
+            <List>
+              {conversationChats.map((chat) => (
+                <ListItem key={chat} disablePadding>
+                  <ListItemButton onClick={() => handleChatSelect(chat)}>
+                    <ListItemText primary={chat} />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
             <Divider className="divider" />
-            <ListItem className='list-item' disablePadding>
+          </div>
+
+          {/* Logout Section */}
+          <div className="logout-section">
+            <ListItem disablePadding>
               <ListItemButton onClick={handleLogout}>
-                <ListItemIcon className='icon'>
+                <ListItemIcon>
                   <img src={logoutIcon} alt="Logout" style={{ width: 24, height: 24 }} />
                 </ListItemIcon>
                 <ListItemText primary="Logout" />
@@ -100,9 +128,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
         </Box>
       </Drawer>
 
-      {showSettings && (
-        <Setting closeSettings={() => setShowSettings(false)} />
-      )}
+      {showSettings && <Setting closeSettings={() => setShowSettings(false)} />}
     </>
   );
 }

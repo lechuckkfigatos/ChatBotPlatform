@@ -1,41 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ChatArea.css';
-import { Divider } from '@mui/material';
 
-const ChatArea = () => {
-  const [messages, setMessages] = useState([]);
+const ChatArea = ({ currentChat, messages, onSendMessage }) => {
   const [input, setInput] = useState('');
-
-  // Reference to the bottom of the messages list
   const messagesEndRef = useRef(null);
 
-  // Function to scroll to the bottom of the chat
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // Scroll to bottom whenever messages change
+  // Scroll to the bottom whenever messages change
   useEffect(() => {
-    scrollToBottom();
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   const handleSend = () => {
     if (input.trim()) {
-      setMessages([...messages, { text: input, sender: 'user' }]);
+      onSendMessage({ text: input, sender: 'user' });
       setInput('');
     }
   };
 
   return (
-    <div className='center'>
     <div className="chat-area">
+      <h2 className='current_chat'>{currentChat}</h2>
       <div className="messages">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>
             {msg.text}
           </div>
         ))}
-      
         <div ref={messagesEndRef} />
       </div>
       <div className="input-area">
@@ -48,7 +38,6 @@ const ChatArea = () => {
         />
         <button onClick={handleSend}>Send</button>
       </div>
-    </div>
     </div>
   );
 };

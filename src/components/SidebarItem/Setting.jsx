@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Setting.css';
-
 
 function Setting({ closeSettings }) {
   const [isAlwaysShowCode, setIsAlwaysShowCode] = useState(false);
   const [isLightTheme, setIsLightTheme] = useState(true);
+  const settingsRef = useRef(null);
 
   const handleToggle = () => {
     setIsAlwaysShowCode(!isAlwaysShowCode);
@@ -13,18 +13,32 @@ function Setting({ closeSettings }) {
   const handleThemeToggle = () => {
     setIsLightTheme(!isLightTheme);
   };
-  
+
+  // Close settings when clicking outside of the settings container
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+        closeSettings();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [closeSettings]);
 
   return (
     <div className="overlay">
-      <div className="settings-container">
+      <div className="settings-container" ref={settingsRef}>
         <div className="settings-header">
-          <h2>Settings ⚙️</h2>
-          <button className="close-button" onClick={closeSettings}>✖</button>
+          <h2>Settings</h2>
+          <button className="close-button" onClick={closeSettings}>
+            ✖
+          </button>
         </div>
         <div className="settings-content">
           <div className="settings-item">
-          <span>Theme</span>
+            <span>Theme</span>
             <div className="toggle-container">
               <span className="spanmargin">Light</span>
               <button
@@ -34,19 +48,17 @@ function Setting({ closeSettings }) {
               <span className="spanmargin">Dark</span>
             </div>
           </div>
-          <hr/>
-          
+          <hr />
+
           <div className="settings-item">
             <span>Always show code when using data analyst</span>
             <div className="toggle-container">
-              <span className='spanmargin'>Off</span>
+              <span className="spanmargin">Off</span>
               <button
                 className={`toggle-switch ${isAlwaysShowCode ? 'on' : 'off'}`}
                 onClick={handleToggle}
-              >
-                
-              </button>
-              <span className='spanmargin'>On</span>
+              ></button>
+              <span className="spanmargin">On</span>
             </div>
           </div>
 
@@ -63,12 +75,12 @@ function Setting({ closeSettings }) {
             <span>Archived chats</span>
             <button className="manage-button">Manage</button>
           </div>
-          
+
           <div className="settings-item">
             <span>Archive all chats</span>
             <button className="action-button">Archive all</button>
           </div>
-          
+
           <div className="settings-item">
             <span>Delete all chats</span>
             <button className="action-button delete">Delete all</button>
