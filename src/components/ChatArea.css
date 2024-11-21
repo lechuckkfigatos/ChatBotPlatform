@@ -102,3 +102,9 @@ button {
 button:hover {
   background-color: #0062d1;
 }
+
+.current_chat{
+  color: #0a84ff;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
