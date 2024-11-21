@@ -18,19 +18,17 @@ import settingIcon from '../assets/settings.png';
 import usthLogo from '../assets/usthlogo.png';
 import Setting from './SidebarItem/Setting';
 
-export default function Sidebar({ isOpen, toggleSidebar, onChatSelect }) {
+export default function Sidebar({ isOpen, toggleSidebar }) {
   const [showSettings, setShowSettings] = useState(false);
-  const [showConvHistory, setShowConvHistory] = useState(false);
 
   const mainMenuItems = [
     { text: 'Add Chat', icon: addChatIcon },
     { text: 'Award', icon: awardIcon },
     { text: 'Quiz', icon: quizIcon },
-    { text: 'Conversation History', icon: historyIcon },
     { text: 'Setting', icon: settingIcon }
   ];
 
-  const conversationChats = ['Chat 1', 'Chat 2', 'Chat 3'];
+
 
   const handleMainMenuClick = (menuItem) => {
     switch (menuItem) {
@@ -46,9 +44,6 @@ export default function Sidebar({ isOpen, toggleSidebar, onChatSelect }) {
         toggleSidebar();
         console.log('Navigating to Quiz');
         break;
-      case 'Conversation History':
-        setShowConvHistory((prev) => !prev);
-        break;
       case 'Setting':
         toggleSidebar();
         handleSettings();
@@ -58,12 +53,7 @@ export default function Sidebar({ isOpen, toggleSidebar, onChatSelect }) {
     }
   };
 
-  const handleChatSelect = (chat) => {
-    onChatSelect(chat);
-    toggleSidebar();
-  };
 
-  // Updated handleSettings function to open the Settings modal
   const handleSettings = () => {
     setShowSettings(true);
   };
@@ -75,9 +65,8 @@ export default function Sidebar({ isOpen, toggleSidebar, onChatSelect }) {
 
   return (
     <>
-      <Drawer open={isOpen} onClose={toggleSidebar} anchor="left">
+      <Drawer open={isOpen} onClose={toggleSidebar} anchor="right">
         <Box className="sidebar-container" role="presentation">
-          {/* USTH Logo */}
           <List>
             <img src={usthLogo} alt="USTH Logo" className="usthlogo" />
           </List>
@@ -100,7 +89,7 @@ export default function Sidebar({ isOpen, toggleSidebar, onChatSelect }) {
 
           <Divider className="divider" />
 
-          {/* Conversation History with Transition */}
+          {/* Conversation History with Transition
           <div className={`conv-history ${showConvHistory ? 'show' : 'hide'}`}>
             <List>
               {conversationChats.map((chat) => (
@@ -112,9 +101,9 @@ export default function Sidebar({ isOpen, toggleSidebar, onChatSelect }) {
               ))}
             </List>
             <Divider className="divider" />
-          </div>
+          </div> */}
 
-          {/* Logout Section */}
+          {/*Logout Section */}
           <div className="logout-section">
             <ListItem disablePadding>
               <ListItemButton onClick={handleLogout}>

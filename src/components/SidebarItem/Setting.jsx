@@ -14,7 +14,7 @@ function Setting({ closeSettings }) {
     setIsLightTheme(!isLightTheme);
   };
 
-  // Close settings when clicking outside of the settings container
+  {/* Close when clicking outside */}
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (settingsRef.current && !settingsRef.current.contains(event.target)) {

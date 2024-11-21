@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
-import TopBar from './components/TopBar';
+import TopBar from './components/Topbar';
 import ChatArea from './components/ChatArea';
+import History from './components/SidebarItem/History';
+import Login from './components/login';
 import './App.css';
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [currentChat, setCurrentChat] = useState('Chat 1'); // Track the current active chat
+  const [currentChat, setCurrentChat] = useState('Chat 1');
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [chatHistories, setChatHistories] = useState({
     'Chat 1': [],
     'Chat 2': [],
-    'Chat 3': []
+    'Chat 3': [],
   });
+  const [user, setUser] = useState(null); // Track logged-in user
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  // Function to switch chats from the sidebar
   const handleChatSelect = (chatName) => {
     setCurrentChat(chatName);
-    setIsSidebarOpen(false); // Optionally close the sidebar when a chat is selected
+    setIsSidebarOpen(false);
   };
 
-  // Function to handle sending a message
   const handleSendMessage = (message) => {
     setChatHistories((prevHistories) => ({
       ...prevHistories,
@@ -31,22 +34,58 @@ const App = () => {
     }));
   };
 
+  const toggleHistory = () => {
+    setIsHistoryOpen(!isHistoryOpen);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+  };
+
   return (
-    <div className="app">
-      <TopBar toggleSidebar={toggleSidebar} />
-      <div className="main-content">
-        <Sidebar
-          isOpen={isSidebarOpen}
-          toggleSidebar={toggleSidebar}
-          onChatSelect={handleChatSelect}
+    <Router>
+      <Routes>
+        <Route
+          path="/login"
+          element={<Login onLogin={(user) => setUser(user)} />} // Pass `setUser` to handle login
         />
-        <ChatArea
-          currentChat={currentChat}
-          messages={chatHistories[currentChat]}
-          onSendMessage={handleSendMessage}
+        <Route
+          path="/"
+          element={
+            user ? (
+              <div className="app">
+                <TopBar
+                  toggleSidebar={toggleSidebar}
+                  toggleHistory={toggleHistory}
+                  onLogout={handleLogout}
+                />
+                
+                <div className='row-container'>
+                  <Sidebar
+                    isOpen={isSidebarOpen}
+                    toggleSidebar={toggleSidebar}
+                  />
+                  <History
+                    isOpen={isHistoryOpen}
+                    onChatSelect={handleChatSelect}
+                  />
+                  <ChatArea
+                    isOpen={isHistoryOpen}
+                    currentChat={currentChat}
+                    messages={chatHistories[currentChat]}
+                    onSendMessage={handleSendMessage}
+                />
+                
+                </div>
+                
+              </div>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
-      </div>
-    </div>
+      </Routes>
+    </Router>
   );
 };
 

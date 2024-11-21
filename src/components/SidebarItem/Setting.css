@@ -79,7 +79,7 @@
   .toggle-switch {
     width: 30px;
     height: 15px;
-    background-color: #ccc;
+    background-color: #6c6c6c;
     border-radius: 15px;
     position: relative;
     cursor: pointer;
@@ -88,8 +88,8 @@
   .toggle-switch::before {
     content: "";
     position: absolute;
-    width: 18px;
-    height: 18px;
+    width: 10px;
+    height: 10px;
     background-color: white;
     border-radius: 50%;
     top: 1px;
@@ -102,7 +102,7 @@
   }
   
   .toggle-switch.on::before {
-    transform: translateX(18px); /* Move toggle button to the right when "on" */
+    transform: translateX(13px); 
   }
   
 
@@ -119,14 +119,15 @@
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    background-color: #e0e0e0;
+    background-color: #8b8b8b;
     cursor: pointer;
-    color: gray;
+    color: rgb(0, 0, 0);
     font-size: 14px;
   }
   .manage-button:hover,
   .action-button:hover {
     color: #ffffff;
+    background-color: #646464;
   }
   
   .action-button.delete {

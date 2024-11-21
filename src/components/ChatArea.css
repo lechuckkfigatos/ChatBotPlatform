@@ -1,7 +1,4 @@
-.center {
-  justify-content: center;
 
-} 
 
 .chat-area {
   display: flex;
@@ -10,6 +7,7 @@
   background-color: #e6f1f8;
   border-radius: 20px;
   overflow-y: auto;
+  
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
@@ -17,6 +15,10 @@
   width: 900px;
   height: 88vh;
   margin: 0 auto;
+  transition:  0.3s ease-in-out;
+}
+.chat-area.with-history {
+  transition:  0.3s ease-in-out;
 }
 
 .messages {
@@ -60,7 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 5px 10px;
   background-color: #ffffff;
   position: sticky;
   bottom: 0;
@@ -88,7 +90,7 @@ input:focus {
   outline: none;
 }
 
-button {
+.send_button {
   background-color: #0a84ff;
   color: white;
   padding: 10px 20px;
@@ -99,12 +101,12 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+.send_button:hover {
   background-color: #0062d1;
 }
 
 .current_chat{
   color: #0a84ff;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 0px;
+  margin-top: 20px;
 }
