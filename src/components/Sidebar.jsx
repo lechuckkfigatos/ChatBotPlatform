@@ -10,7 +10,8 @@ import Divider from '@mui/material/Divider';
 import './Sidebar.css';
 
 import addChatIcon from '../assets/add_note.png';
-import awardIcon from '../assets/award.png';
+import theoryIcon from '../assets/theory.png';
+import leaderBoardIcon from '../assets/leaderBoard.png';
 import historyIcon from '../assets/history.png';
 import logoutIcon from '../assets/logout.png';
 import quizIcon from '../assets/quiz.png';
@@ -23,7 +24,8 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
 
   const mainMenuItems = [
     { text: 'Add Chat', icon: addChatIcon },
-    { text: 'Award', icon: awardIcon },
+    { text: 'Theory', icon: theoryIcon },
+    { text: 'Leaderboard', icon: leaderBoardIcon },
     { text: 'Quiz', icon: quizIcon },
     { text: 'Setting', icon: settingIcon }
   ];
@@ -36,10 +38,14 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
         toggleSidebar();
         console.log('Navigating to Add Chat');
         break;
-      case 'Award':
+      case 'Theory':
         toggleSidebar();
-        console.log('Navigating to Awards');
+        console.log('Navigating to Theory');
         break;
+      case 'Leaderboard':
+        toggleSidebar();
+        console.log('Navigating to Leaderboard');
+        break; 
       case 'Quiz':
         toggleSidebar();
         console.log('Navigating to Quiz');
